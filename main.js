@@ -132,7 +132,6 @@ function onFieldClick(event) {
   }
   const target = event.target;
   if (target.matches('.carrot')) {
-    // 당근!!
     target.remove();
     score++;
     playSound(carrotSound);
@@ -179,3 +178,5 @@ function addItem(className, count, imgPath) {
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
+
+console.log(fieldRect);
