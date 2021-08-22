@@ -23,6 +23,7 @@ export default class GameField{
         const y1 = 0;
         const x2 = this.fieldRect.width - CARROT_SIZE;
         const y2 = this.fieldRect.height - CARROT_SIZE;
+        const fieldNode = this.field;
         for (let i = 0; i < count; i++) {
           const item = document.createElement('img');
           item.setAttribute('class', className);
@@ -32,7 +33,7 @@ export default class GameField{
           const y = randomNumber(y1, y2);
           item.style.left = `${x}px`;
           item.style.top = `${y}px`;
-          field.appendItems(item);
+          fieldNode.appendChild(item);
         }
       }
 }
