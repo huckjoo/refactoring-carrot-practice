@@ -1,22 +1,35 @@
 'use strict';
 const CARROT_SIZE = 80;
+const carrotSound = new Audio('./sound/carrot_pull.mp3');
 
 export default class GameField{
-    constructor(){
+    constructor(CARROT_COUNT,BUG_COUNT){
+        this.carrotCount = CARROT_COUNT;
+        this.bugCount = BUG_COUNT;
         this.field = document.querySelector('.game__field');
         this.fieldRect = this.field.getBoundingClientRect();
-        this.field.addEventListener('click',(event)=>{
-            this.onClickFunction && this.onClickFunction(event);
-        })
+        this.field.addEventListener('click',(event)=>{this.onClick(event)});
     }
     setOnClickFunction(onClickfunction){
         this.onClickFunction = onClickfunction;
     }
+    onClick(event){
+        const target = event.target;
+        if(target.matches('.carrot')){
+            target.remove();
+            playSound(carrotSound);
+            this.onClickFunction && this.onClickFunction('carrot');
+        }else if(target.matches('.bug')){
+            this.onClickFunction && this.onClickFunction('bug');
+        }
+    }
     clean(){
         this.field.innerHTML = '';
     }
-    appendItems(item){
-        this.field.appendChild(item)
+    init(){
+        this.clean();
+        this.addItem('carrot', this.carrotCount, 'img/carrot.png');
+        this.addItem('bug', this.bugCount, 'img/bug.png');
     }
     addItem(className, count, imgPath) {
         const x1 = 0;
@@ -40,4 +53,9 @@ export default class GameField{
 
 function randomNumber(min, max) {
     return Math.random() * (max - min) + min;
+  }
+
+function playSound(sound) {
+    sound.currentTime = 0;
+    sound.play();
   }
