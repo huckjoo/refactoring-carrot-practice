@@ -1,6 +1,6 @@
 'use strict';
 const CARROT_SIZE = 80;
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
+import * as sound from './sound.js';
 
 export default class GameField{
     constructor(CARROT_COUNT,BUG_COUNT){
@@ -17,7 +17,7 @@ export default class GameField{
         const target = event.target;
         if(target.matches('.carrot')){
             target.remove();
-            playSound(carrotSound);
+            sound.carrot();
             this.onClickFunction && this.onClickFunction('carrot');
         }else if(target.matches('.bug')){
             this.onClickFunction && this.onClickFunction('bug');
@@ -53,9 +53,4 @@ export default class GameField{
 
 function randomNumber(min, max) {
     return Math.random() * (max - min) + min;
-  }
-
-function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
   }
