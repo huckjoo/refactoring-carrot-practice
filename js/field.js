@@ -2,7 +2,12 @@
 const CARROT_SIZE = 80;
 import * as sound from './sound.js';
 
-export default class GameField{
+export const itemType = Object.freeze({
+    carrot: 'carrot',
+    bug: 'bug',
+})
+
+export class GameField{
     constructor(CARROT_COUNT,BUG_COUNT){
         this.carrotCount = CARROT_COUNT;
         this.bugCount = BUG_COUNT;
@@ -18,9 +23,9 @@ export default class GameField{
         if(target.matches('.carrot')){
             target.remove();
             sound.carrot();
-            this.onClickFunction && this.onClickFunction('carrot');
+            this.onClickFunction && this.onClickFunction(itemType.carrot);
         }else if(target.matches('.bug')){
-            this.onClickFunction && this.onClickFunction('bug');
+            this.onClickFunction && this.onClickFunction(itemType.bug);
         }
     }
     clean(){
@@ -28,8 +33,8 @@ export default class GameField{
     }
     init(){
         this.clean();
-        this.addItem('carrot', this.carrotCount, 'img/carrot.png');
-        this.addItem('bug', this.bugCount, 'img/bug.png');
+        this.addItem(itemType.carrot, this.carrotCount, 'img/carrot.png');
+        this.addItem(itemType.bug, this.bugCount, 'img/bug.png');
     }
     addItem(className, count, imgPath) {
         const x1 = 0;

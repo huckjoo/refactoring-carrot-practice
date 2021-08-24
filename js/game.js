@@ -2,6 +2,7 @@
 
 import GameField from './field.js';
 import * as sound from './sound.js';
+import itemType from './field';
 export const Reason = Object.freeze({
     win: 'win',
     lose: 'lose',
@@ -56,17 +57,17 @@ class Game{
     }
     onFieldClick = (item) => {
         if (!this.started) {
-          return;
+            return;
         }
-        if (item === 'carrot') {
-          this.score++;
-          this.updateScoreBoard();
-          if (this.score === this.carrotCount) {
-            this.finish(Reason.win);
-          }
-        } else if (item === 'bug'){
-          this.finish(Reason.lose);
-        }
+        if (item === itemType.carrot) {
+            this.score++;
+            this.updateScoreBoard();
+            if (this.score === this.carrotCount) {
+                this.finish(Reason.win);
+            }
+            } else if (item === itemType.bug){
+            this.finish(Reason.lose);
+            }
       }
     setGameStopListener(onGameStop){
         this.onGameStop = onGameStop;
